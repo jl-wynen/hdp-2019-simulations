@@ -1,0 +1,163 @@
+\documentclass[a4paper, 14pt, fleqn, notitlepage]{scrartcl}
+
+\usepackage[a4paper,
+            vdivide={2cm,,2cm},
+            hdivide={1cm,,1cm}
+            ]{geometry}
+
+\usepackage{xltxtra}
+\usepackage[german]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{commath}            % for nicer differentials
+\usepackage{bm}                 % bold math
+\usepackage{dsfont}
+
+\usepackage{datetime}
+\usepackage{graphics}           % addition to above
+\usepackage{float}              % place graphics with "H"
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}           % FloatBarrier
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+
+
+%---------------------------------------------------------
+% general info
+
+% ISO date format
+\newdateformat{isodate}{\THEYEAR--\twodigit{\THEMONTH}--\twodigit{\THEDAY}}
+
+\newcommand{\theauthor}{Jan-Lukas Wynen}
+\newcommand{\thetitle}{Formelsammlung zur Merkursimulation}
+\newcommand{\thedate}{\isodate\today}
+
+\author{\theauthor}
+\title{\vspace{-4em}\thetitle}
+\date{\thedate}
+
+
+%---------------------------------------------------------
+% abbreviations
+\newcommand{\unit}[1]{\,\text{#1}}
+\newcommand{\unitr}{\frac{\vec{r}}{r}}
+
+
+%---------------------------------------------------------
+% miscellaneous
+
+% custom emphasis
+\newcommand{\empha}[1]{{\color{aiphiemph1}#1}}
+\newcommand{\emphb}[1]{{\color{aiphiemph2}#1}}
+\newcommand{\emphc}[1]{{\color{aiphiemph3}#1}}
+\renewcommand{\emph}[1]{\empha{#1}}
+
+% hide section numbers
+\renewcommand\thesection{}
+
+% don't put a space after , in math
+\DeclareMathSymbol{,}{\mathord}{letters}{"3B}
+
+
+% ---------------------------------------------------------
+% document
+
+\begin{document}
+\sffamily
+\pagestyle{empty}
+
+\begin{center}
+  \textbf{\textsf{\huge\thetitle}}
+\end{center}
+
+\begin{center}
+  \color{black!50!white}{\rule{\textwidth}{1pt}}
+\end{center}
+\vspace{-2.5em}
+\section{Physikalische Größen}
+
+\begin{tabular}{ll}
+  Gravitationskonstante & $G = 6,67 \cdot 10^{-11} \, \frac{\text{m}^3}{\text{kg}\,\text{s}^2}$\\
+  Sonnenmasse & $M_\odot = 1,99 \cdot 10^{30} \unit{kg}$\\
+  Lichtgeschwindigkeit & $c = 3,00 \cdot 10^{8} \, \frac{\text{m}}{\text{s}}$\\[1em]
+  Schwarzschildradius d.\ Sonne & $\mathtt{r\_S} = r_S = \frac{2 G M_\odot}{c^2} = 2,95 \unit{km}$\\
+  Spezifischer Drehimpuls & $\mathtt{rL2} = r_L^2 = \frac{\vec{L}^2}{m^2 c^2} = \frac{{(\vec{r} \times \vec{v})}^2}{c^2} = 8.19 \cdot 10^{13} \,\text{m}^2$\\[1em]
+  \color{black!75!white}{Referenzlänge} & \color{black!75!white}{$R_0 = 10^{10} \unit{m}$}\\
+  \color{black!75!white}{Referenzzeit} & \color{black!75!white}{$T_0 = 1 \unit{d}$}
+\end{tabular}
+
+\vspace{1em}
+\begin{center}
+  \color{black!50!white}{\rule{\textwidth}{1pt}}
+\end{center}
+\vspace{-1.5em}
+\begin{minipage}[t]{1.0\paperwidth}
+  \section{Gravitation}
+\end{minipage}\\[0.6em]
+
+\noindent
+\begin{minipage}[t]{0.5\paperwidth}
+  Klassische Gravitationskraft:
+  \begin{align*}
+    \vec{F} = - \frac{G m M_\odot}{r^2} \unitr = - \frac{mc^2}{2} \frac{r_S}{r^2} \unitr
+  \end{align*}\\[0.5em]
+  Allgemeine Relativitätstheorie (Näherung):
+  \begin{align*}
+    \vec{F} = - \frac{mc^2}{2} \frac{r_S}{r^2} \left(1 + a \frac{r_S}{r} + b \frac{r_L^2}{r^2}\right) \unitr
+  \end{align*}
+\end{minipage}
+\begin{minipage}[t]{0.5\paperwidth}
+  Reale werte:
+  \begin{align*}
+    a &= 0, \quad b = 3\\[0.5em]
+    \frac{r_S}{r} &\approx 6 \cdot 10^{-8}, \quad \frac{r_L^2}{r^2} \approx 4 \cdot 10^{-8}
+  \end{align*}
+  In der Simulation:
+  \begin{align*}
+    a,\, b \gtrsim 10^{6}
+  \end{align*}
+\end{minipage}
+
+\vspace{1em}
+\begin{center}
+  \color{black!50!white}{\rule{\textwidth}{1pt}}
+\end{center}
+\vspace{-1.5em}
+\begin{minipage}[t]{0.5\paperwidth}
+  \section{Bewegungsgleichung}
+
+  Newtons Gleichung:
+  \begin{align*}
+    \vec{F} = m \vec{a}
+  \end{align*}
+  Ableitung (Änderung in der Zeit):
+  \begin{align*}
+    \vec{v}(t) &= \dot{\vec{r}}(t) \approx \frac{\vec{r}(t + \Delta t) - \vec{r}(t)}{\Delta t}\\[0.6em]
+    \vec{a}(t) &= \dot{\vec{v}}(t) \approx \frac{\vec{v}(t + \Delta t) - \vec{v}(t)}{\Delta t}
+  \end{align*}
+\end{minipage}
+%
+\begin{minipage}[t]{0.5\paperwidth}
+  \section{Euler-Verfahren}
+
+  \begin{itemize}\setlength{\itemsep}{0.5em}
+  \item[Haben:] $\vec{r}(t), \;\; \vec{v}(t)$
+  \item[Wollen:] $\vec{r}(t + \Delta t), \;\; \vec{v}(t + \Delta t)$
+  \item[1.] $\vec{a}(t) = \vec{F}(\vec{r}(t)) / m$
+  \item[2.] $\vec{v}(t + \Delta t) = \vec{v}(t) + \vec{a}(t) \Delta t$
+  \item[3.] $\vec{r}(t + \Delta t) = \vec{r}(t) + \vec{v}(t + \Delta t) \Delta t$
+  \end{itemize}
+\end{minipage}
+
+\end{document}
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-engine: xetex
+%%% End:
