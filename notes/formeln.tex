@@ -79,16 +79,27 @@
   \color{black!50!white}{\rule{\textwidth}{1pt}}
 \end{center}
 \vspace{-2.5em}
-\section{Physikalische Größen}
+\section{Physikalische Gr\"o\ss en}
 
 \begin{tabular}{ll}
   Gravitationskonstante & $G = 6,67 \cdot 10^{-11} \, \frac{\text{m}^3}{\text{kg}\,\text{s}^2}$\\
+  & \\
   Sonnenmasse & $M_\odot = 1,99 \cdot 10^{30} \unit{kg}$\\
-  Lichtgeschwindigkeit & $c = 3,00 \cdot 10^{8} \, \frac{\text{m}}{\text{s}}$\\[1em]
-  Schwarzschildradius d.\ Sonne & $\mathtt{r\_S} = r_S = \frac{2 G M_\odot}{c^2} = 2,95 \unit{km}$\\
-  Spezifischer Drehimpuls & $\mathtt{rL2} = r_L^2 = \frac{\vec{L}^2}{m^2 c^2} = \frac{{(\vec{r} \times \vec{v})}^2}{c^2} = 8.19 \cdot 10^{13} \,\text{m}^2$\\[1em]
-  \color{black!75!white}{Referenzlänge} & \color{black!75!white}{$R_0 = 10^{10} \unit{m}$}\\
-  \color{black!75!white}{Referenzzeit} & \color{black!75!white}{$T_0 = 1 \unit{d}$}
+  & \\
+  Lichtgeschwindigkeit & $c = 3,00 \cdot 10^{8} \, \frac{\text{m}}{\text{s}}$\\
+  & \\
+  K\"urzester Abstand Sonne-Merkur & $r_{\rm Merkur}=46\cdot 10^6$ km \\
+    & \\
+Merkur Geschwindigkeit dort & $v_{\rm Merkur}=59\, \frac{\text{km}}{\text{s}}$ \\
+  & \\
+  Schwarzschildradius d.\ Sonne & $r_S = \frac{2 G M_\odot}{c^2} = 2,95 \, \unit{km}$\\
+  & \\
+  Spezifischer Drehimpuls & $r_L^2 = \frac{\vec{L}_{\rm Merkur}^2}{m^2 c^2} = \frac{{(\vec{r}_{\rm Merkur} \times \vec{v}_{\rm Merkur})}^2}{c^2} = 8,19 \cdot 10^{13} \,\text{m}^2$\\
+  & \\
+  Kraftfaktor & $c_a = \frac{c^2r_S}{2}=1,33\cdot 10^{11} \ \frac{\text{km}^3}{\text{s}^2}$  \\
+  & \\[1em]
+  \color{black!75!white}{Referenzl\"ange} & \color{black!75!white}{$R_0 = 10^{10} \unit{m} = 10^{7} \unit{km}$}\\
+  \color{black!75!white}{Referenzzeit} & \color{black!75!white}{$T_0 = 1 \unit{d}=8,84\cdot 10^4 \unit{s}$}
 \end{tabular}
 
 \vspace{1em}
@@ -101,22 +112,38 @@
 \end{minipage}\\[0.6em]
 
 \noindent
-\begin{minipage}[t]{0.5\paperwidth}
-  Klassische Gravitationskraft:
+\begin{minipage}[t]{0.6\paperwidth}
+  Newton'sche Gravitationskraft:
   \begin{align*}
-    \vec{F} = - \frac{G m M_\odot}{r^2} \unitr = - \frac{mc^2}{2} \frac{r_S}{r^2} \unitr
+    \vec{F} = - \frac{G m M_\odot}{r^2} \unitr = - \frac{mc^2}{2} \frac{r_S}{r^2} \unitr= - m \frac{c_a}{r^2} \unitr
   \end{align*}\\[0.5em]
-  Allgemeine Relativitätstheorie (Näherung):
+  
+  \vspace{-1.3cm}
+  
+  $\Longrightarrow$ {\bf F\"uhrt zu geschlossenen Ellipsenbahnen}
+    
+  \vspace{0.5cm}
+  
+  Korrektur:
   \begin{align*}
     \vec{F} = - \frac{mc^2}{2} \frac{r_S}{r^2} \left(1 + a \frac{r_S}{r} + b \frac{r_L^2}{r^2}\right) \unitr
   \end{align*}
+  
+  mit
+  
+  \vspace{-1cm}
+  
+  $$
+    \frac{r_S}{\bar r_{\rm Merkur}} \approx 6 \cdot 10^{-8}, \quad \frac{r_L^2}{r_{\rm Merkur}^2} \approx 4 \cdot 10^{-8}
+$$
+  
+  
 \end{minipage}
 \begin{minipage}[t]{0.5\paperwidth}
-  Reale werte:
+  Allgemeine Relativit\"atstheorie:
   \begin{align*}
-    a &= 0, \quad b = 3\\[0.5em]
-    \frac{r_S}{r} &\approx 6 \cdot 10^{-8}, \quad \frac{r_L^2}{r^2} \approx 4 \cdot 10^{-8}
-  \end{align*}
+    a &= 0, \quad b = 3\\[1.em]
+    \end{align*}
   In der Simulation:
   \begin{align*}
     a,\, b \gtrsim 10^{6}
@@ -128,31 +155,78 @@
   \color{black!50!white}{\rule{\textwidth}{1pt}}
 \end{center}
 \vspace{-1.5em}
-\begin{minipage}[t]{0.5\paperwidth}
-  \section{Bewegungsgleichung}
+\begin{minipage}[t]{\paperwidth}
+{\Large Ziel: {\bf Berechnung der Bahnen des Merkurs f\"ur \\ {\phantom{Ziel:}}verschiedene Kraftgesetze}}
 
-  Newtons Gleichung:
-  \begin{align*}
-    \vec{F} = m \vec{a}
-  \end{align*}
-  Ableitung (Änderung in der Zeit):
-  \begin{align*}
-    \vec{v}(t) &= \dot{\vec{r}}(t) \approx \frac{\vec{r}(t + \Delta t) - \vec{r}(t)}{\Delta t}\\[0.6em]
-    \vec{a}(t) &= \dot{\vec{v}}(t) \approx \frac{\vec{v}(t + \Delta t) - \vec{v}(t)}{\Delta t}
-  \end{align*}
-\end{minipage}
+\vspace{0.5cm}
+
+Wir brauchen: Zu jeder Zeit $t$ Ort $(\vec r)$ und Geschwindigkeit $(\vec v)$
+
+\vspace{0.5cm}
+
+also: $(\vec r(t),\vec v(t))\ \Longrightarrow \ (\vec r(t+\Delta t),\vec v(t+\Delta t))$
+
+\vspace{0.5cm}
+
+
+ {\bf Bewegungsgleichung:}  ${\vec{F} = m \vec{a}}$
+
+\vspace{0.5cm}
+wobei gilt
+$$
+    \vec{a}(t) = \frac{d\vec{v}(t)}{dt} \approx \frac{\vec{v}(t + \Delta t) - \vec{v}(t)}{\Delta t}\quad \mbox{und}\quad
+    \vec{v}(t) = \frac{d\vec{r}(t)}{dt} \approx \frac{\vec{r}(t + \Delta t) - \vec{r}(t)}{\Delta t}
+ $$
+
+\vspace{0.5cm}
+
+ Also (Eulerverfahren): 
+ 
+\vspace{0.9cm}
+
+ Kennt man die Kraft, so kennt man die Beschleunigung. 
+  
+\vspace{0.4cm}
+
+\hspace{2cm}  $\vec{a}(t) = \vec{F}(\vec{r}(t)) / m = -c_a/r^2  \left(1 + a \frac{r_S}{r} + b \frac{r_L^2}{r^2}\right) \ (\vec r/r)$ 
+  
+\vspace{0.4cm}
+
+\hspace{3.0cm} {\tt aMS = c\_a / vec\_rM\_old.mag**2 }
+
+\hspace{3.0cm} {\tt aMS = aMS*( 1 + a*rS/vec\_rM\_old.mag + b*rL2/vec\_rm\_old.mag**2) }
+  
+\hspace{3.0cm} {\tt vec\_aMS = -  aMS * (vec\_rM\_old/vec\_rM\_old.mag)}
+  
+\vspace{0.9cm}
+
+$\Longrightarrow$  \"Anderung der Geschwindigkeit 
+  
+\vspace{0.4cm}
+ 
+\hspace{2cm}   $\vec{v}(t + \Delta t) = \vec{v}(t) + \vec{a}(t) \Delta t$
+ 
+\vspace{0.4cm}
+
+\hspace{3.0cm} {\tt vec\_vM\_new =   vec\_vM\_old +  vec\_ams * dt}
+
+\vspace{0.9cm}
+
+$ \Longrightarrow$  \"Anderung des Ortes 
+   
+\vspace{0.4cm}
+ 
+\hspace{2cm}   $\vec{r}(t + \Delta t) = \vec{r}(t) + \vec{v}(t + \Delta t) \Delta t$
+ 
+\vspace{0.4cm}
+
+\hspace{3.0cm} {\tt vec\_rM\_new =   vec\_rM\_old +  vec\_vM\_new * dt}
+
+ \end{minipage}
 %
-\begin{minipage}[t]{0.5\paperwidth}
-  \section{Euler-Verfahren}
 
-  \begin{itemize}\setlength{\itemsep}{0.5em}
-  \item[Haben:] $\vec{r}(t), \;\; \vec{v}(t)$
-  \item[Wollen:] $\vec{r}(t + \Delta t), \;\; \vec{v}(t + \Delta t)$
-  \item[1.] $\vec{a}(t) = \vec{F}(\vec{r}(t)) / m$
-  \item[2.] $\vec{v}(t + \Delta t) = \vec{v}(t) + \vec{a}(t) \Delta t$
-  \item[3.] $\vec{r}(t + \Delta t) = \vec{r}(t) + \vec{v}(t + \Delta t) \Delta t$
-  \end{itemize}
-\end{minipage}
+\vspace{2cm}
+
 
 \end{document}
 
