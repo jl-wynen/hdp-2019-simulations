@@ -8,7 +8,7 @@ from vpython import *
 
 
 def canvas(width=512,
-           height=512,
+           height=400,
            background=vector(0.9, 0.9, 0.9),
            center=vpython.vector(0, -2, 0),
            userzoom=True):
